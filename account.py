@@ -1,4 +1,3 @@
-
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
@@ -101,13 +100,9 @@ class account_invoice(osv.osv):
                             total_debit += line.debit
                         if line.account_id.user_type.code == 'tax':  
                             total_credit += line.credit
-                    result[id]=total_debit-total_credit    
-                
-                
+                    result[id]=total_debit-total_credit
         return result
-    
-    
-    
+
     def _get_curency_rate(self, cr, uid, ids, field_name, arg, context=None):
         result = {}
         if not ids: return result
@@ -177,7 +172,6 @@ class account_invoice(osv.osv):
             res[invoice.id] = self.test_currency_rate(cr, uid,[invoice.id])
         return res
 
-    
     def _get_invoice_line2(self, cr, uid, ids, context=None):
         result = {}
         for line in self.pool.get('account.invoice.line').browse(cr, uid, ids, context=context):
@@ -204,9 +198,8 @@ class account_invoice(osv.osv):
             'currency_rate_invisible':fields.function(_get_currency_rate_invisible, type='boolean', string='Currency Rate visible?'),
 
                     }
-
-
 account_invoice()
+
 
 class res_currency(osv.osv):
  

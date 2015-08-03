@@ -60,10 +60,8 @@
                         	<filter icon="terp-stock_effects-object-colorize" name="order_currency_id" string="Devise" domain="[]" context="{'group_by':'order_currency_id'}"/>
                         </xpath>
                 </field>
-            </record> 
-    
-        <!-- Purchase Order Tree mode -->
-    	
+            </record>
+
     	<record model="ir.ui.view" id="purchase_order_tree_inherit">
                 <field name="name">purchase.order.iniherit.tree</field>
                 <field name="model">purchase.order</field>
@@ -76,8 +74,6 @@
                        	</xpath>
 				</field>
             </record>
-
-    	<!-- Purchase Order Form mode -->
             
             <record model="ir.ui.view" id="purchase_order_form_inherit">
                 <field name="name">purchase.order.iniherit.form</field>
@@ -95,7 +91,6 @@
                        	</xpath>
 				</field>
             </record>
-            
             
             <record model="ir.ui.view" id="inherit_view_request_for_quotation_filter">
                 <field name="name">inherit.purchase.quotation.search.form</field>
@@ -118,7 +113,6 @@
                         </xpath>
                 </field>
             </record>
-
 
 	</data>
 </openerp>

@@ -1,4 +1,3 @@
-
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
@@ -48,7 +47,6 @@ class sale_order(osv.osv):
                                 sale_order.amount_untaxed, context=context)
                 result[id]= local_subtotal
         return result
-
 
     def _get_curency_rate(self, cr, uid, ids, field_name, arg, context=None):
         result = {}
@@ -155,7 +153,6 @@ class purchase_order(osv.osv):
                 result[id]= local_subtotal
         return result
 
-
     def _get_curency_rate(self, cr, uid, ids, field_name, arg, context=None):
         result = {}
         if not ids: return result
@@ -215,7 +212,6 @@ class purchase_order(osv.osv):
         currency_id=self.pool.get('product.pricelist').browse(cr, uid, pricelist_id, context=context).currency_id.id
         return {'value': {'currency_id': currency_id, 'order_currency_id':currency_id}}
 
-
     _columns = {
             'company_id_currency':fields.related('company_id','currency_id',type='many2one',relation='res.currency',string="Devise de la société"),
             'order_currency_id': fields.related('pricelist_id', 'currency_id', type="many2one", relation="res.currency", string="Devise(groupement)",store=True),
@@ -224,5 +220,4 @@ class purchase_order(osv.osv):
             'currency_date':fields.function(_get_curency_date,type="date",string="Date du taux de change"),
             'currency_rate_invisible':fields.function(_get_currency_rate_invisible, type='boolean', string='Currency Rate visible?'),
                     }
-
 purchase_order()

@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='utf-8'?>
+<openerp>
+    <data>
+
+		<record model="ir.ui.view" id="view_account_move_line_reconcile_full_inherit">
+                <field name="name">account.move.line.reconcile.full.iniherit.form</field>
+                <field name="model">account.move.line.reconcile</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="account.view_account_move_line_reconcile_full"/>
+                <field name="arch" type="xml">
+                       <xpath expr="//button[@name='trans_rec_reconcile_partial_reconcile']" position="attributes">
+							<attribute name="string">Lettrage partiel</attribute>
+						</xpath>
+						
+				</field>
+            </record>
+            
+            <record model="ir.ui.view" id="view_account_invoice_inherit">
+                <field name="name">account.invoice.iniherit.tree</field>
+                <field name="model">account.invoice</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="account.invoice_tree"/>
+                <field name="arch" type="xml">
+                       	<xpath expr="//field[@name='currency_id']" position="replace">
+                       	
+                       	</xpath>
+                       	<xpath expr="//field[@name='residual']" position="replace">
+                       	
+                       	</xpath>
+                       	<xpath expr="//field[@name='amount_total']" position="after">
+                       		<field name="residual" sum="Balance"/>
+                       		<field name="currency_id" groups="base.group_multi_currency"/>
+                       		<field name="local_subtotal" sum="Total HT (Devise local)"/>
+                       	</xpath>
+                       	
+                       	
+				</field>
+            </record>
+            
+            <record model="ir.ui.view" id="view_account_invoice_form_inherit">
+                <field name="name">account.invoice.iniherit.form</field>
+                <field name="model">account.invoice</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="account.invoice_form"/>
+                <field name="arch" type="xml">
+                       <xpath expr="//field[@name='residual']" position="after">
+                       		<field name="company_id_currency"  invisible="1"/>
+                       		<field name="local_subtotal"  widget="monetary" options="{'currency_field': 'company_id_currency'}" attrs="{'invisible':[('currency_rate_invisible','=',True)]}"/>
+                       		<field name="currency_rate" attrs="{'invisible':[('currency_rate_invisible','=',True)]}"/>
+                       		<field name="currency_date" attrs="{'invisible':[('currency_rate_invisible','=',True)]}"/>
+                       		<field name="currency_rate_invisible" invisible="1"/>
+                       	</xpath>
+				</field>
+            </record>
+            
+            <record model="ir.ui.view" id="view_account_invoice_supplier_form_inherit">
+                <field name="name">account.invoice.supplier.iniherit.form</field>
+                <field name="model">account.invoice</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="account.invoice_supplier_form"/>
+                <field name="arch" type="xml">
+                       <xpath expr="//field[@name='residual']" position="after">
+                       		<field name="company_id_currency"  invisible="1"/>
+                       		<field name="local_subtotal"  widget="monetary" options="{'currency_field': 'company_id_currency'}" attrs="{'invisible':[('currency_rate_invisible','=',True)]}"/>
+                       		<field name="currency_rate" attrs="{'invisible':[('currency_rate_invisible','=',True)]}"/>
+                       		<field name="currency_date" attrs="{'invisible':[('currency_rate_invisible','=',True)]}"/>
+                       		<field name="currency_rate_invisible" invisible="1"/>
+                       	</xpath>
+				</field>
+            </record>
+            
+            <record model="ir.ui.view" id="inherit_view_account_invoice_filter">
+                <field name="name">inherit.account.invoice.search.form</field>
+                <field name="model">account.invoice</field>
+                <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+                <field name="arch" type="xml">
+                        <xpath expr="//group[@string='Group By']" position="inside">
+                        	<filter icon="terp-stock_effects-object-colorize" name="currency_id" string="Devise" domain="[]" context="{'group_by':'currency_id'}"/>
+                        </xpath>
+                </field>
+            </record>
+            
+            
+          
+            
+            
+            
+            
+ </data>
+</openerp>

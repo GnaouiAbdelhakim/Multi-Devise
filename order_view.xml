@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='utf-8'?>
+<openerp>
+    <data>
+    	
+    	<record model="ir.ui.view" id="view_order_tree_inherit">
+                <field name="name">sale.order.iniherit.tree</field>
+                <field name="model">sale.order</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="sale.view_order_tree"/>
+                <field name="arch" type="xml">
+                       	<xpath expr="//field[@name='amount_total']" position="before">
+                       		<field name="amount_untaxed" sum="Sous Total"/>
+                       	</xpath>
+                       	<xpath expr="//field[@name='amount_total']" position="after">
+                       		<field name="currency_id" groups="base.group_multi_currency"/>
+                       		<field name="local_subtotal" sum="Total HT (Devise local)"/>
+                       	</xpath>
+				</field>
+            </record>
+    	
+    	<record model="ir.ui.view" id="view_quotation_tree_inherit">
+                <field name="name">sale.order.quotation.iniherit.tree</field>
+                <field name="model">sale.order</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="sale.view_quotation_tree"/>
+                <field name="arch" type="xml">
+                       	<xpath expr="//field[@name='amount_total']" position="before">
+                       		<field name="amount_untaxed" sum="Sous Total"/>
+                       	</xpath>
+                       	<xpath expr="//field[@name='amount_total']" position="after">
+                       		<field name="currency_id" groups="base.group_multi_currency"/>
+                       		<field name="local_subtotal" sum="Total HT (Devise local)"/>
+                       	</xpath>
+				</field>
+            </record>
+    	
+    	<record model="ir.ui.view" id="view_order_form_inherit">
+                <field name="name">sale.order.iniherit.form</field>
+                <field name="model">sale.order</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="sale.view_order_form"/>
+                <field name="arch" type="xml">
+                       <xpath expr="//field[@name='amount_total']" position="after">
+                       		<field name="company_id_currency" invisible="1"/>
+                       		<field name="sale_order_currency_id" invisible="1"/>
+                       		<field name="local_subtotal"  widget="monetary" options="{'currency_field': 'company_id_currency'}" attrs="{'invisible':[('currency_rate_invisible','=',True)]}"/>
+                       		<field name="currency_rate" attrs="{'invisible':[('currency_rate_invisible','=',True)]}"/>
+                       		<field name="currency_date" attrs="{'invisible':[('currency_rate_invisible','=',True)]}"/>
+                       		<field name="currency_rate_invisible" invisible="1"/>
+                       	</xpath>
+				</field>
+            </record>
+            
+         <record model="ir.ui.view" id="inherit_view_sales_order_filterr">
+                <field name="name">inherit.sale.order.search.form</field>
+                <field name="model">sale.order</field>
+                <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+                <field name="arch" type="xml">
+                        <xpath expr="//group[@string='Group By']" position="inside">
+                        	<filter icon="terp-stock_effects-object-colorize" name="order_currency_id" string="Devise" domain="[]" context="{'group_by':'order_currency_id'}"/>
+                        </xpath>
+                </field>
+            </record> 
+    
+        <!-- Purchase Order Tree mode -->
+    	
+    	<record model="ir.ui.view" id="purchase_order_tree_inherit">
+                <field name="name">purchase.order.iniherit.tree</field>
+                <field name="model">purchase.order</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="purchase.purchase_order_tree"/>
+                <field name="arch" type="xml">
+                       	<xpath expr="//field[@name='amount_total']" position="after">
+                       		<field name="currency_id" groups="base.group_multi_currency"/>
+                       		<field name="local_subtotal" sum="Total HT (Devise local)"/>
+                       	</xpath>
+				</field>
+            </record>
+
+    	<!-- Purchase Order Form mode -->
+            
+            <record model="ir.ui.view" id="purchase_order_form_inherit">
+                <field name="name">purchase.order.iniherit.form</field>
+                <field name="model">purchase.order</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="purchase.purchase_order_form"/>
+                <field name="arch" type="xml">
+                       <xpath expr="//field[@name='amount_total']" position="after">
+                       		<field name="company_id_currency" invisible="1"/>
+                       		<field name="order_currency_id" invisible="1"/>
+                       		<field name="local_subtotal"  widget="monetary" options="{'currency_field': 'company_id_currency'}" attrs="{'invisible':[('currency_rate_invisible','=',True)]}"/>
+                       		<field name="currency_rate" attrs="{'invisible':[('currency_rate_invisible','=',True)]}"/>
+                       		<field name="currency_date" attrs="{'invisible':[('currency_rate_invisible','=',True)]}"/>
+                       		<field name="currency_rate_invisible" invisible="1"/>
+                       	</xpath>
+				</field>
+            </record>
+            
+            
+            <record model="ir.ui.view" id="inherit_view_request_for_quotation_filter">
+                <field name="name">inherit.purchase.quotation.search.form</field>
+                <field name="model">purchase.order</field>
+                <field name="inherit_id" ref="purchase.view_request_for_quotation_filter"/>
+                <field name="arch" type="xml">
+                        <xpath expr="//group[@string='Group By']" position="inside">
+                        	<filter icon="terp-stock_effects-object-colorize" name="order_currency_id" string="Devise" domain="[]" context="{'group_by':'order_currency_id'}"/>
+                        </xpath>
+                </field>
+        </record> 
+            
+            <record model="ir.ui.view" id="inherit_view_purchase_order_filter">
+                <field name="name">inherit.purchase.order.search.form</field>
+                <field name="model">purchase.order</field>
+                <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+                <field name="arch" type="xml">
+                        <xpath expr="//group[@string='Group By']" position="inside">
+                        	<filter icon="terp-stock_effects-object-colorize" name="order_currency_id" string="Devise" domain="[]" context="{'group_by':'order_currency_id'}"/>
+                        </xpath>
+                </field>
+            </record>
+
+
+	</data>
+</openerp>
